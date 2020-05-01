@@ -37,26 +37,14 @@ module DoublyLinkedlist
     # Returns nil if the value is not present.
     # Signature: Type(node_value) -> Integer
     def index(value)
-      item = @head
-
-      count.times do |i|
-        return i if item.value == value
-
-        item = item.next
-      end
+      find_index(0, @head, :next, 1)
     end
 
     # Returns the rightmost index of value present in the list.
     # Returns nil if the value is not present.
     # Signature: Type(node_value) -> Integer
     def rindex(value)
-      item = @tail
-
-      (count - 1).downto(0) do |i|
-        return i if item.value == value
-
-        item = item.prev
-      end
+      find_index(count - 1, @tail, :prev, -1)
     end
 
     # Inserts a node with the given value into the head of the list,
@@ -65,7 +53,7 @@ module DoublyLinkedlist
       new_node = Node.new(value)
       @head.prev = new_node if @head
       new_node.next = @head
-      @tail = new_node unless tail
+      @tail = new_node unless @tail
       @head = new_node
       @count += 1
     end
@@ -75,8 +63,8 @@ module DoublyLinkedlist
     def enqueue(value)
       new_node = Node.new(value)
       @head = new_node unless @head
-      @tail.next = new_node if tail
-      new_node.prev = tail
+      @tail.next = new_node if @tail
+      new_node.prev = @tail
       @tail = new_node
       @count += 1
     end
@@ -112,33 +100,41 @@ module DoublyLinkedlist
 
     alias :deque :pop
 
-    # Prints out the values in the list one by one starting from head.
-    def dump_list
-      item = @head
-
-      while item do
-        p item.value
-        item = item.next
-      end
-    end
-
     def to_a
-      arr = []
       item = @head
+      arr = []
 
       while item do
         arr.push(item.value)
         item = item.next
       end
 
-      arr.reverse
+      arr
     end
+
+    def to_s
+      to_a.to_s
+    end
+
+    alias :inspect :to_s
 
     private
 
     # Enqueue nodes one by one with the values given as an array into the list.
     def build_list_from_array(values)
       values.each { |v| enqueue(v) }
+    end
+
+    def find_index(start_index, start_item, item_iterator_name, step)
+      i = start_index
+      item = start_item
+
+      while item do
+        return i if item.value == value
+
+        item = item.send(item_iterator_name)
+        i += step
+      end
     end
   end
 end
