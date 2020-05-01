@@ -33,8 +33,8 @@ module DoublyLinkedlist
       end
     end
 
-    # Inserts a node with the given value into the head of the list and
-    # increments the counter.
+    # Inserts a node with the given value into the head of the list,
+    # increments and returns the count of nodes.
     def insert(value)
       new_node = Node.new(value)
       new_node.next = head
