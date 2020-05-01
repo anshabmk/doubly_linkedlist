@@ -45,6 +45,13 @@ module DoublyLinkedlist
 
     alias :push :insert
 
+    def enqueue(value)
+      new_node = Node.new(value)
+      tail.next = new_node
+      tail = new_node
+      @count += 1
+    end
+
     # Deletes the node at a given index and returns the value present in the
     # deleted node.
     # Returns nil if the given index is out of range.
@@ -73,6 +80,8 @@ module DoublyLinkedlist
     def pop
       delete_at(0)
     end
+
+    alias :deque :pop
 
     # Prints out the values in the list one by one starting from head.
     def dump_list
