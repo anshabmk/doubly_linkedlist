@@ -4,32 +4,58 @@ require 'doubly_linkedlist/node'
 
 module DoublyLinkedlist
   class List
-    attr_reader :count, :head, :tail
+    attr_reader :count
 
     def initialize(values = [])
       @count = 0
       build_list_from_array(values)
     end
 
+    def head
+      @head.value if @head
+    end
+
+    alias :first :head
+
+    def tail
+      @tail.value if @tail
+    end
+
+    alias :last :tail
+
     # Returns the node object at the given index if present, nil otherwise.
     # Signature: Integer -> Node
     def find_at(index)
       return if (index + 1) > count
 
-      item = head
+      item = @head
       index.times { item = item.next }
-      item
+      item.value
     end
 
-    # Returns the node object with the given value if present, nil otherwise.
-    # Signature: Type(node_obj.value) -> Node
-    def find_by_value(value)
+    # Returns the leftmost index of the value present in the list.
+    # Returns nil if the value is not present.
+    # Signature: Type(node_value) -> Integer
+    def index(value)
       item = @head
 
-      while item != nil do
-        return item if item.value == value
+      count.times do |i|
+        return i if item.value == value
 
         item = item.next
+      end
+    end
+
+    # Returns the rightmost index of value present in the list.
+    # Returns nil if the value is not present.
+    # Signature: Type(node_value) -> Integer
+    def rindex(value)
+      item = @tail
+
+      (count - 1).downto(0) do |i|
+        return i if item.value == value
+
+        item = item.prev
       end
     end
 
@@ -37,8 +63,9 @@ module DoublyLinkedlist
     # increments and returns the count of nodes.
     def insert(value)
       new_node = Node.new(value)
-      new_node.next = head
-      @tail = new_node if new_node.next.nil?
+      @head.prev = new_node if @head
+      new_node.next = @head
+      @tail = new_node unless tail
       @head = new_node
       @count += 1
     end
@@ -47,8 +74,10 @@ module DoublyLinkedlist
 
     def enqueue(value)
       new_node = Node.new(value)
-      tail.next = new_node
-      tail = new_node
+      @head = new_node unless @head
+      @tail.next = new_node if tail
+      new_node.prev = tail
+      @tail = new_node
       @count += 1
     end
 
@@ -60,10 +89,10 @@ module DoublyLinkedlist
       return if (index + 1) > count
 
       if index.zero?
-        deleted = head
+        deleted = @head
         @head = @head.next
       else
-        prev_item = head
+        prev_item = @head
 
         (index - 1).times { prev_item = prev_item.next }
 
@@ -85,7 +114,7 @@ module DoublyLinkedlist
 
     # Prints out the values in the list one by one starting from head.
     def dump_list
-      item = head
+      item = @head
 
       while item do
         p item.value
@@ -95,7 +124,7 @@ module DoublyLinkedlist
 
     def to_a
       arr = []
-      item = head
+      item = @head
 
       while item do
         arr.push(item.value)
@@ -107,9 +136,9 @@ module DoublyLinkedlist
 
     private
 
-    # Inserts nodes one by one with the values given as an array into the list.
+    # Enqueue nodes one by one with the values given as an array into the list.
     def build_list_from_array(values)
-      (values.size - 1).downto(0) { |i| insert(values[i]) }
+      values.each { |v| enqueue(v) }
     end
   end
 end
