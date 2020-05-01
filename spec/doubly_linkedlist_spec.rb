@@ -3,7 +3,7 @@ RSpec.describe DoublyLinkedlist do
     expect(DoublyLinkedlist::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  it "requires doubly_linkedlist/list" do
+    expect(DoublyLinkedlist::List).not_to be nil
   end
 end
