@@ -4,7 +4,7 @@ require 'doubly_linkedlist/node'
 
 module DoublyLinkedlist
   class List
-    attr_reader :count, :head
+    attr_reader :count, :head, :tail
 
     def initialize(values = [])
       @count = 0
@@ -38,6 +38,7 @@ module DoublyLinkedlist
     def insert(value)
       new_node = Node.new(value)
       new_node.next = head
+      @tail = new_node if new_node.next.nil?
       @head = new_node
       @count += 1
     end
@@ -61,6 +62,7 @@ module DoublyLinkedlist
 
         deleted = prev_item.next
         prev_item.next = deleted.next
+        @tail = prev_item if prev_item.next.nil?
       end
 
       @count -= 1
@@ -80,6 +82,18 @@ module DoublyLinkedlist
         p item.value
         item = item.next
       end
+    end
+
+    def to_a
+      arr = []
+      item = head
+
+      while item do
+        arr.push(item.value)
+        item = item.next
+      end
+
+      arr.reverse
     end
 
     private
