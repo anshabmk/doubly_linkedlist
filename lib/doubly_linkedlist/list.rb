@@ -6,17 +6,21 @@ module DoublyLinkedlist
   class List
     attr_reader :count
 
+    # Initialize a DoublyLinkedlist::List object with the values passed in
+    # the optional argument array.
     def initialize(values = [])
       @count = 0
       build_list_from_array(values)
     end
 
+    # Returns the value at the head of the list if present, nil otherwise.
     def head
       @head.value if @head
     end
 
     alias :first :head
 
+    # Returns the value at the tail of the list if present, nil otherwise.
     def tail
       @tail.value if @tail
     end
@@ -60,6 +64,8 @@ module DoublyLinkedlist
 
     alias :push :insert
 
+    # Inserts a node with the given value into the tail of the list,
+    # increments and returns the count of nodes.
     def enqueue(value)
       new_node = Node.new(value)
       @head = new_node unless @head
@@ -100,6 +106,7 @@ module DoublyLinkedlist
 
     alias :deque :pop
 
+    # Converts the list object into an array object with all the node values.
     def to_a
       item = @head
       arr = []
@@ -112,6 +119,7 @@ module DoublyLinkedlist
       arr
     end
 
+    # Converts the array representation of list into a string.
     def to_s
       to_a.to_s
     end
