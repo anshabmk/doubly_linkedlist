@@ -67,6 +67,11 @@ module DoublyLinkedlist
       deleted.value
     end
 
+    # Pops out and returns the node_value at head.
+    def pop
+      delete_at(0)
+    end
+
     # Prints out the values in the list one by one starting from head.
     def dump_list
       item = head
