@@ -42,6 +42,8 @@ module DoublyLinkedlist
       @count += 1
     end
 
+    alias :push :insert
+
     # Deletes the node at a given index and returns the value present in the
     # deleted node.
     # Returns nil if the given index is out of range.
