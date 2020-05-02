@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    doubly_linkedlist (0.1.0)
+    doubly_linkedlist (0.2.0)
 
 GEM
   remote: https://rubygems.org/
