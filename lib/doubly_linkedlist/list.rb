@@ -40,7 +40,7 @@ module DoublyLinkedlist
     # @param index [Integer] the index where to look up.
     # @return [Object, Nil] the value at the given index, or nil if index is out of range.
     def find_at(index)
-      return if (index + 1) > count
+      return if (index + 1) > count || index < 0
 
       item = @head
       index.times { item = item.next }
