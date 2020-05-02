@@ -53,7 +53,7 @@ module DoublyLinkedlist
     # @param value [Object] the node value for which to be looked up.
     # @return [Integer, Nil] the index of the value passed in, or nil if value is not present.
     def index(value)
-      find_index(0, @head, :next, 1)
+      find_index(value, 0, @head, :next, 1)
     end
 
     # Returns the rightmost index of value present in the list.
@@ -62,7 +62,7 @@ module DoublyLinkedlist
     # @param value [Object] the node value for which to be looked up.
     # @return [Integer, Nil] the index of the value passed in, or nil if value is not present.
     def rindex(value)
-      find_index(count - 1, @tail, :prev, -1)
+      find_index(value, count - 1, @tail, :prev, -1)
     end
 
     # Inserts a node with the given value into the head of the list,
@@ -102,7 +102,7 @@ module DoublyLinkedlist
     # @param index [Integer] the index at which node has to be deleted.
     # @return [Object] the deleted node value.
     def delete_at(index)
-      return if (index + 1) > count
+      return if (index + 1) > count || index < 0
 
       if index.zero?
         deleted = @head
@@ -161,7 +161,7 @@ module DoublyLinkedlist
       values.each { |v| enqueue(v) }
     end
 
-    def find_index(start_index, start_item, item_iterator_name, step)
+    def find_index(value, start_index, start_item, item_iterator_name, step)
       i = start_index
       item = start_item
 
