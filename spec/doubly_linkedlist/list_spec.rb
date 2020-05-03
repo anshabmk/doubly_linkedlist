@@ -171,30 +171,30 @@ RSpec.describe DoublyLinkedlist::List do
     end
   end
 
-  context '#to_a' do
-    it 'should convert the list into an array object' do
-      arr = random_arr
-      list = subject.new(arr)
-      list_to_arr = list.to_a
-
-      expect(list_to_arr.class).to be(Array)
-      expect(list_to_arr).to eql(arr)
-    end
-
-    it 'should convert an empty list into an empty array' do
-      expect(subject.new.to_a).to eql([])
-    end
-  end
-
   context '#to_s (also: #inspect)' do
     it 'should convert the array representation of list into a string' do
       list = subject.new(random_arr)
 
-      expect(list.to_s).to eql(list.to_a.to_s)
+      expect(list.to_s).to eql("<#{subject}: #{list.to_a.to_s}>")
     end
 
     it 'should convert an empty list into a string' do
-      expect(subject.new.inspect).to eql([].to_s)
+      expect(subject.new.inspect).to eql("<#{subject}: #{[].to_s}>")
+    end
+  end
+
+  context '#each' do
+    it 'should return an enumerator if no block is given' do
+      list = subject.new(random_arr)
+
+      expect(list.each.inspect).to eql(list.to_enum.inspect)
+    end
+
+    it 'should yield block on each node value object' do
+      arr = random_arr
+      list = subject.new(arr)
+
+      expect { |b| list.each(&b) }.to yield_successive_args(*arr)
     end
   end
 end
