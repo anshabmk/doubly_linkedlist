@@ -5,6 +5,8 @@ require 'doubly_linkedlist/node'
 module DoublyLinkedlist
   # Creates list with nodes
   class List
+    include Enumerable
+
     # @return [Integer] the number of nodes in the list.
     attr_reader :count
 
@@ -133,26 +135,46 @@ module DoublyLinkedlist
     # Converts the list object into an array object with all the node values.
     #
     # @return [Array] the array object with node values as elements.
-    def to_a
-      item = @head
-      arr = []
+    # def to_a
+    #   item = @head
+    #   arr = []
 
-      while item do
-        arr.push(item.value)
-        item = item.next
-      end
+    #   while item do
+    #     arr.push(item.value)
+    #     item = item.next
+    #   end
 
-      arr
-    end
+    #   arr
+    # end
 
     # Converts the array representation of list into a string.
     #
     # @return [String] the string object after converting the array representation of list into string.
     def to_s
-      to_a.to_s
+      str = "<List: ["
+
+      each { |v| str += "#{v}, " }
+
+      str.gsub(/,\s$/, "]>")
     end
 
     alias :inspect :to_s
+
+    # Support for Enumerable methods.
+    #
+    # @params [Block] the block to be yielded on each item
+    # @return [Enumerator] the enumerator when no block is given
+    # @return [DoublyLinkedlist] the object after yielding block on every item
+    def each
+      return enum_for(:each) unless block_given?
+
+      item = @head
+
+      while item do
+        yield item.value
+        item = item.next
+      end
+    end
 
     private
 
