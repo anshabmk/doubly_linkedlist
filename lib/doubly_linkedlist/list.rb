@@ -132,9 +132,9 @@ module DoublyLinkedlist
 
     alias :deque :pop
 
-    # Converts the array representation of list into a string.
+    # Converts the list representation into a string.
     #
-    # @return [String] the string object after converting the array representation of list into string.
+    # @return [String] the string object after converting the representation of list into string.
     def to_s
       str = "<#{self.class}: ["
 
