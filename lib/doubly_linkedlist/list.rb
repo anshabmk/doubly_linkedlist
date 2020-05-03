@@ -132,21 +132,6 @@ module DoublyLinkedlist
 
     alias :deque :pop
 
-    # Converts the list object into an array object with all the node values.
-    #
-    # @return [Array] the array object with node values as elements.
-    # def to_a
-    #   item = @head
-    #   arr = []
-
-    #   while item do
-    #     arr.push(item.value)
-    #     item = item.next
-    #   end
-
-    #   arr
-    # end
-
     # Converts the array representation of list into a string.
     #
     # @return [String] the string object after converting the array representation of list into string.
