@@ -151,9 +151,14 @@ module DoublyLinkedlist
     #
     # @return [String] the string object after converting the array representation of list into string.
     def to_s
-      str = "<List: ["
-      each { |v| str += "#{v}, " }
-      str.gsub(/,\s$/, "]>")
+      str = "<#{self.class}: ["
+
+      each_with_index do |v, i|
+        str += v.to_s
+        str += ', ' unless i == (count - 1)
+      end
+
+      str + ']>'
     end
 
     alias :inspect :to_s
