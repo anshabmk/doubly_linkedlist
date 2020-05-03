@@ -1,6 +1,6 @@
 # DoublyLinkedlist
 
-A Ruby implementation of the famous Doubly Linkedlist data structure following ruby idioms. A Linkedlist is efficient in many specific cases than other data structures such as Array.
+A Ruby implementation of the famous Doubly Linkedlist data structure with support to the Enumerable methods such as `each`, `to_a`, `map`, etc. following ruby idioms. Supports Queue operations as well as Stack operations. A Linkedlist is efficient in many specific cases than other data structures such as Array.
 
 ## Installation
 
@@ -124,7 +124,7 @@ list = DoublyLinkedlist::List.new [1, "Some object", 40, 100, 40]
 list.count # => 5
 
 list.delete_at(1) # => "Some object"
-list # => [1, 40, 100, 40]
+list # => <DoublyLinkedlist::List: [1, 40, 100, 40]>
 list.count # => 4
 
 list.delete_at(6) # => nil
@@ -137,6 +137,23 @@ Converts the list object into an array object with all the node values.
 
 ```ruby
 list = DoublyLinkedlist::List.new [1, "Some object", 40, 100, 40]
+
+```
+#### Enumerable Methods Support
+
+Supports the methods available in the Enumerable module such as `to_a`, `each`, `each_with_object`, `any?`, etc. For more information on available methods refer documentation for Ruby Enumerable Module.
+
+Some examples below,
+```ruby
+list = DoublyLinkedlist::List.new [1, "Some object", 40, 100, 40]
+
+list.each { |obj| puts obj }
+# 1
+# Some object
+# 40
+# 100
+# 40
+# => nil
 
 arr = list.to_a
 arr.class # => Array
@@ -154,7 +171,7 @@ increments and returns the count of nodes.
 list = DoublyLinkedlist::List.new [1, "Some object", 40, 100, 40]
 
 list.push(25) # => 6
-list # => [25, 1, "Some object", 40, 100, 40]
+list # => <DoublyLinkedlist::List: [25, 1, "Some object", 40, 100, 40]>
 ```
 
 ##### #pop
@@ -166,7 +183,7 @@ list = DoublyLinkedlist::List.new [1, "Some object", 40, 100, 40]
 
 list.pop # => 1
 list.count # => 4
-list # => ["Some object", 40, 100, 40]
+list # => <DoublyLinkedlist::List: ["Some object", 40, 100, 40]>
 ```
 
 #### Queue Operations
@@ -180,7 +197,7 @@ increments and returns the count of nodes.
 list = DoublyLinkedlist::List.new [1, "Some object", 40, 100, 40]
 
 list.enqueue(25) # => 6
-list # => [1, "Some object", 40, 100, 40, 25]
+list # => <DoublyLinkedlist::List: [1, "Some object", 40, 100, 40, 25]>
 ```
 
 ##### #deque
@@ -192,7 +209,7 @@ list = DoublyLinkedlist::List.new [1, "Some object", 40, 100, 40]
 
 list.deque # => 1
 list.count # => 4
-list # => ["Some object", 40, 100, 40]
+list # => <DoublyLinkedlist::List: ["Some object", 40, 100, 40]>
 ```
 
 Refer [documentation](https://rubydoc.info/gems/doubly_linkedlist/DoublyLinkedlist/) for more information.
